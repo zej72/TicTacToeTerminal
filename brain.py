@@ -1,8 +1,9 @@
 class TicTac:
 
     def __init__(self, players):
-        self.players = [False, False]
+        self.players = players
         self.positions = ['n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n']
+        self.active_player = "x"
 
     def getAvailableMoves(self):
         return self.positions.count('n')
@@ -10,8 +11,7 @@ class TicTac:
     def getPositions(self):
         return self.positions
 
-    def printPositions(self):
-        position_selector = 1
+    def printBoard(self):
         horizontal_field = 0
         vertical_field = 0
         out = ""
@@ -20,8 +20,7 @@ class TicTac:
             out += " "
             horizontal_field += 1
             if field == "n":
-                out += str(position_selector)
-                position_selector += 1
+                out += str(horizontal_field + vertical_field * 3)
             if field == "x":
                 out += "✕"
             if field == "o":
@@ -35,5 +34,14 @@ class TicTac:
                 out += "  ┃ "
         print(out)
 
-    def move(self, player, move_id):
-        self.positions[move_id] = player
+    def move(self, move_id):
+        move_id -= 1
+        if self.positions[move_id] == "n":
+            self.positions[move_id] = self.active_player
+
+            if self.active_player == "x":
+                self.active_player = "o"
+            else:
+                self.active_player = "x"
+        else:
+            raise Exception("field is occupied")
