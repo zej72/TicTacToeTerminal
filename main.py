@@ -1,4 +1,4 @@
-from brain import TicTac
+from TicTac import TicTac, checkForWin
 
 #  1  ┃  2  ┃  3
 # ────╂─────╂────
@@ -40,7 +40,8 @@ game = TicTac(players)
 
 while True:
     game.printBoard()
-    game.checkForWin()
+    if checkForWin(game.board):
+        exit(230914)
 
     if game.players[game.active_player[0]]:
         move = int(input(game.active_player))

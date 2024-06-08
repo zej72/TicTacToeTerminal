@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e8ef72c-e338-41ec-a5a0-96a2e075fb11" name="Changes" comment="printing board">
+    <list default="true" id="9e8ef72c-e338-41ec-a5a0-96a2e075fb11" name="Changes" comment="detecting win">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/brain.py" beforeDir="false" afterPath="$PROJECT_DIR$/brain.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/brain.py" beforeDir="false" afterPath="$PROJECT_DIR$/TicTac.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -57,6 +57,11 @@
     "settings.editor.selected.configurable": "discord-application"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\bees9\PycharmProjects\tic tac toe" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="tic tac toe" />
@@ -105,7 +110,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717791913298</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="detecting win">
+      <option name="closed" value="true" />
+      <created>1717850747675</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1717850747675</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -121,6 +134,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="printing board" />
-    <option name="LAST_COMMIT_MESSAGE" value="printing board" />
+    <MESSAGE value="detecting win" />
+    <option name="LAST_COMMIT_MESSAGE" value="detecting win" />
   </component>
 </project>
