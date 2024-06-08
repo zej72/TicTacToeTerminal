@@ -1,4 +1,4 @@
-from TicTac import TicTac, checkForWin
+from TicTac import *
 
 #  1  ┃  2  ┃  3
 # ────╂─────╂────
@@ -40,12 +40,26 @@ game = TicTac(players)
 
 while True:
     game.printBoard()
-    if checkForWin(game.board):
+    if checkForGameOver(game.board):
         exit(230914)
 
-    if game.players[game.active_player[0]]:
+    print(game.active_player)
+
+    if game.players[game.active_player][0]:
         move = int(input(game.active_player))
         try:
             game.move(move)
         except Exception as e:
             print(e)
+    else:
+        moves = []
+        for item in PossibleActions(game.board, "o"):
+            moves.append([MiniMax(item, "o", True), item])
+        sorted(moves)
+        game.board = moves[-1][1]
+        if game.active_player == "x":
+            game.active_player = "o"
+        else:
+            game.active_player = "x"
+
+
