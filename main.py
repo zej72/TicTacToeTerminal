@@ -40,6 +40,8 @@ game = TicTac(players)
 
 while True:
     game.printBoard()
+    game.checkForWin()
+
     if game.players[game.active_player[0]]:
         move = int(input(game.active_player))
         try:
