@@ -41,7 +41,14 @@ game = TicTac(players)
 while True:
     game.printBoard()
     if checkForGameOver(game.board):
-        exit(230914)
+        winner = winningValue(game.board, "x")
+        if winner == 1:
+            print("✕ won!")
+        elif winner == 0:
+            print("draw!")
+        elif winner == -1:
+            print("◯ won!")
+        exit(1)
 
     print(game.active_player)
 
@@ -53,13 +60,23 @@ while True:
             print(e)
     else:
         moves = []
-        for item in PossibleActions(game.board, "o"):
-            moves.append([MiniMax(item, "o", True), item])
-        sorted(moves)
-        game.board = moves[-1][1]
+        for item in PossibleActions(game.board, "x"):
+            move = [MiniMax(item, "x", True), item]
+            moves.append(move)
+            print(move)
+        i = 1
+        while i >= -1:
+            for item in moves:
+                if item[0] == i:
+                    move = item[1]
+                    i = -2
+                    print(f"found best move: {move} winning probability: {item[0]}")
+                    break
+            i -= 1
+
+        game.board = move
+
         if game.active_player == "x":
             game.active_player = "o"
         else:
             game.active_player = "x"
-
-

@@ -1,23 +1,34 @@
 def checkForGameOver(board):
-    winning_combinations = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+    winning_combinations = ([0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6])
 
-    if "n" not in board:
-        return True
+    i = -1
+    while i < len(winning_combinations) - 1:
+        i += 1
+        if "n" != board[winning_combinations[i][0]] == board[winning_combinations[i][1]] == board[winning_combinations[i][2]]:
+            return board[winning_combinations[i][0]]
 
-    for fields in winning_combinations:
-        if "n" != board[fields[0]] == board[fields[1]] == board[fields[2]]:
-            return board[fields[0]]
-    return False
+    if "n" in board:
+        return False
+    return True
 
 
 def winningValue(board, player):
     boardState = checkForGameOver(board)
     if boardState == player:
         return 1
-    elif boardState:
+    elif boardState == True:  # noqa
         return 0
-    else:
+    elif boardState != player:
         return -1
+
+
+def switch(inp):
+    if inp == "o":
+        return "x"
+    elif inp == "x":
+        return "o"
+    else:
+        raise TypeError("can accept only 'o' and 'x'")
 
 
 def PossibleActions(board, player):
@@ -36,25 +47,21 @@ def PossibleActions(board, player):
 
 
 def MiniMax(board, player, max_player):
-    if not max_player:
-        if player == "x":
-            player = "o"
-        else:
-            player = "x"
 
-    if checkForGameOver(board) != False:  # noqa
+    game_over_check = checkForGameOver(board)
+    if game_over_check == True or game_over_check == "x" or game_over_check == "o":  # noqa
         return winningValue(board, player)
 
     if max_player:
-        value = float("-inf")
-        for action in PossibleActions(board, player):
-            value = max(value, MiniMax(action, player, False))
+        value = -9999999
+        for position in PossibleActions(board, switch(player)):
+            value = max(value, MiniMax(position, player, False))
         return value
 
     if not max_player:
-        value = float("inf")
-        for action in PossibleActions(board, player):
-            value = min(value, MiniMax(action, player, False))
+        value = 9999999
+        for position in PossibleActions(board, player):
+            value = min(value, MiniMax(position, player, True))
         return value
 
 
@@ -103,7 +110,5 @@ class TicTac:
         else:
             raise Exception("field is occupied")
 
-
-yay = ['x', 'x', 'n', 'n', 'n', 'n', 'o', 'n', 'n']
+#yay = ['x', 'x', 'n', 'n', 'n', 'n', 'o', 'n', 'n']
 #game = TicTac(players = {"x": [True, "player1"], "o": [False, "ai"]})
-
