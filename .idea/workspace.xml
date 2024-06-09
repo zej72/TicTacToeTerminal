@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e8ef72c-e338-41ec-a5a0-96a2e075fb11" name="Changes" comment="barely working ai">
+    <list default="true" id="9e8ef72c-e338-41ec-a5a0-96a2e075fb11" name="Changes" comment="minimax AI">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TicTac.py" beforeDir="false" afterPath="$PROJECT_DIR$/TicTac.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,7 +141,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717887996992</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="minimax AI">
+      <option name="closed" value="true" />
+      <created>1717951832684</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1717951832684</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -163,6 +169,7 @@
     <MESSAGE value="moved checkForWin from TicTac class" />
     <MESSAGE value="MiniMax structure" />
     <MESSAGE value="barely working ai" />
-    <option name="LAST_COMMIT_MESSAGE" value="barely working ai" />
+    <MESSAGE value="minimax AI" />
+    <option name="LAST_COMMIT_MESSAGE" value="minimax AI" />
   </component>
 </project>
