@@ -51,14 +51,20 @@ while True:
                 print(f"{winner} won!")
             game_active = False
             continue
-        print(game.active_player)
+        print(f"{game.active_player} turn")
 
         if game.players[game.active_player][0]:
-            move = int(input(game.active_player))
-            try:
-                game.move(move)
-            except Exception as e:
-                print(e)
+
+            move = input()
+            if move == "show":
+                game.show_guid_numbers = True
+            elif move == "hide":
+                game.show_guid_numbers = False
+            else:
+                try:
+                    game.move(int(move))
+                except Exception as e:
+                    print(e)
         else:
             move = GetOptimalMove(game.board, game.active_player)
             print(move)

@@ -124,6 +124,7 @@ class TicTac:
         self.players = players
         self.board = ['n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n']
         self.active_player = "x"
+        self.show_guid_numbers = False
 
     def printBoard(self) -> None:
         horizontal_field = 0
@@ -134,8 +135,11 @@ class TicTac:
             out += " "
             horizontal_field += 1
             if field == "n":
-                out += " "
-                #out += str(horizontal_field + vertical_field * 3)
+                if self.show_guid_numbers:
+                    out += str(horizontal_field + vertical_field * 3)
+                else:
+                    out += " "
+
             if field == "x":
                 out += "x"
             if field == "o":
