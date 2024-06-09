@@ -66,6 +66,6 @@ while True:
 
     game.board = ['n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n']
     sleep(1)
-    print("\n\n\n\n\n\n\nroles switched\nprevious x is now o and previous o is now x!")
+    print("\n\n\n\n\n\n\n\nroles switched\nprevious x is now o and previous o is now x!")
     game.players["x"][0] = not game.players["x"][0]
     game.players["o"][0] = not game.players["o"][0]
