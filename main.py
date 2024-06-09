@@ -1,4 +1,5 @@
 from TicTac import *
+from time import sleep
 
 #  1  ┃  2  ┃  3
 # ────╂─────╂────
@@ -6,7 +7,7 @@ from TicTac import *
 # ────╂─────╂────
 #  7  ┃  8  ┃  9
 
-players = {"x": [False, ""], "o": [False, ""]}
+players = {"x": [True, ""], "o": [True, ""]}
 
 # get player 1 character
 
@@ -20,8 +21,8 @@ while True:
         break
 
 # get player 2/ AI character
-
-while True:
+AI_coplayer_enable = True
+while AI_coplayer_enable:
     coplayer = input("2th player: AI? (y/n)\n")
     if coplayer == "y":
         if player == "o":
@@ -35,48 +36,36 @@ while True:
         elif player == "x":
             players["o"] = [True, "player2"]
         break
-
-game = TicTac(players)
-
 while True:
-    game.printBoard()
-    if checkForGameOver(game.board):
-        winner = winningValue(game.board, "x")
-        if winner == 1:
-            print("✕ won!")
-        elif winner == 0:
-            print("draw!")
-        elif winner == -1:
-            print("◯ won!")
-        exit(1)
+    game = TicTac(players)
 
-    print(game.active_player)
+    game_active = True
 
-    if game.players[game.active_player][0]:
-        move = int(input(game.active_player))
-        try:
-            game.move(move)
-        except Exception as e:
-            print(e)
-    else:
-        moves = []
-        for item in PossibleActions(game.board, "x"):
-            move = [MiniMax(item, "x", True), item]
-            moves.append(move)
-            print(move)
-        i = 1
-        while i >= -1:
-            for item in moves:
-                if item[0] == i:
-                    move = item[1]
-                    i = -2
-                    print(f"found best move: {move} winning probability: {item[0]}")
-                    break
-            i -= 1
+    while game_active:
+        game.printBoard()
+        if isTerminalState(game.board):
+            winner = isTerminalState(game.board)
+            if winner:
+                print("draw!")
+            else:
+                print(f"{winner} won!")
+            game_active = False
+            continue
+        print(game.active_player)
 
-        game.board = move
-
-        if game.active_player == "x":
-            game.active_player = "o"
+        if game.players[game.active_player][0]:
+            move = int(input(game.active_player))
+            try:
+                game.move(move)
+            except Exception as e:
+                print(e)
         else:
-            game.active_player = "x"
+            move = GetOptimalMove(game.board, game.active_player)
+            print(move)
+            game.move(move)
+
+    game.board = ['n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n']
+    sleep(1)
+    print("\n\n\n\n\n\n\nroles switched\nprevious x is now o and previous o is now x!")
+    game.players["x"][0] = not game.players["x"][0]
+    game.players["o"][0] = not game.players["o"][0]

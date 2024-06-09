@@ -1,68 +1,121 @@
-def checkForGameOver(board):
-    winning_combinations = ([0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6])
-
-    i = -1
-    while i < len(winning_combinations) - 1:
-        i += 1
-        if "n" != board[winning_combinations[i][0]] == board[winning_combinations[i][1]] == board[winning_combinations[i][2]]:
-            return board[winning_combinations[i][0]]
-
-    if "n" in board:
-        return False
-    return True
+import random
 
 
-def winningValue(board, player):
-    boardState = checkForGameOver(board)
-    if boardState == player:
+def isTerminalState(board) -> bool or str:
+    terminal_positions = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+    for ter_pos in terminal_positions:
+        if board[ter_pos[0]] == board[ter_pos[1]] == board[ter_pos[2]] != "n":
+            return board[ter_pos[0]]  # someone won
+
+    if "n" not in board:
+        return True  # draw
+
+    return False  # not terminal
+
+
+def winningValue(board, player) -> int:
+    game_state = isTerminalState(board)
+    if game_state == player:
         return 1
-    elif boardState == True:  # noqa
-        return 0
-    elif boardState != player:
+    elif game_state == switch(player):
         return -1
-
-
-def switch(inp):
-    if inp == "o":
-        return "x"
-    elif inp == "x":
-        return "o"
     else:
-        raise TypeError("can accept only 'o' and 'x'")
+        return 0
 
 
-def PossibleActions(board, player):
-    possible_actions = []
+def PossibleActions(board, player) -> list:
     i = 0
-    while i < len(board):
+    possible_actions = []
+    while i <= len(board):
         if board[i] == "n":
-            possible_action = []
+            action = []
+            # copy list bc normal way is broken god help me
             for item in board:
-                possible_action.append(item)
-            possible_action[i] = player
-            possible_actions.append(possible_action)
-            board[i] = "n"
+                action.append(item)
+
+            action[i] = player
+            possible_actions.append(action)
         i += 1
     return possible_actions
 
 
-def MiniMax(board, player, max_player):
+def MiniMax(board, is_maximizing) -> int:
+    if isTerminalState(board):
+        return winningValue(board, "max")
 
-    game_over_check = checkForGameOver(board)
-    if game_over_check == True or game_over_check == "x" or game_over_check == "o":  # noqa
-        return winningValue(board, player)
+    if is_maximizing:
+        best_score = float("-inf")
+        i = 0
+        while i <= 8:
+            if board[i] == "n":
+                board[i] = "max"
+                score = MiniMax(board, False)
+                board[i] = "n"
+                if score > best_score:
+                    best_score = score
+            i += 1
+        return best_score
+    else:
+        best_score = float("inf")
+        i = 0
+        while i <= 8:
+            if board[i] == "n":
+                board[i] = "min"
+                score = MiniMax(board, True)
+                board[i] = "n"
+                if score < best_score:
+                    best_score = score
+            i += 1
+        return best_score
 
-    if max_player:
-        value = -9999999
-        for position in PossibleActions(board, switch(player)):
-            value = max(value, MiniMax(position, player, False))
-        return value
 
-    if not max_player:
-        value = 9999999
-        for position in PossibleActions(board, player):
-            value = min(value, MiniMax(position, player, True))
-        return value
+def GetOptimalMove(board, player) -> int:
+    best_score = float("-inf")
+    move = str
+
+    f_board = []
+    for field in board:
+        f_board.append(field)
+
+    if board == ['n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n']:
+        return random.choice([1, 3, 7, 9])
+
+    i = 0
+    while i <= 8:
+        if f_board[i] == player:
+            f_board[i] = "max"
+        elif f_board[i] != "n":
+            f_board[i] = "min"
+        i += 1
+
+    i = 0
+    while i <= 8:
+        if f_board[i] == "n":
+            f_board[i] = "max"
+            score = MiniMax(f_board, False)
+            f_board[i] = "n"
+            if score > best_score:  # or (random.randrange(2) == 1 and score == best_score):
+                best_score = score
+                move = i
+        i += 1
+
+    if best_score == 1:
+        print("gg")
+
+    return move + 1
+
+
+def switch(inp) -> str:
+    if inp == "o":
+        return "x"
+    elif inp == "x":
+        return "o"
+    elif inp == "max":
+        return "min"
+    elif inp == "min":
+        return "max"
+    else:
+        raise TypeError(f"value: {inp} not supported")
 
 
 class TicTac:
@@ -72,10 +125,7 @@ class TicTac:
         self.board = ['n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n']
         self.active_player = "x"
 
-    def getAvailableMoves(self):
-        return self.board.count('n')
-
-    def printBoard(self):
+    def printBoard(self) -> None:
         horizontal_field = 0
         vertical_field = 0
         out = ""
@@ -84,11 +134,12 @@ class TicTac:
             out += " "
             horizontal_field += 1
             if field == "n":
-                out += str(horizontal_field + vertical_field * 3)
+                out += " "
+                #out += str(horizontal_field + vertical_field * 3)
             if field == "x":
-                out += "✕"
+                out += "x"
             if field == "o":
-                out += "◯"
+                out += "o"
 
             if horizontal_field >= 3 and vertical_field < 2:
                 out += "\n────╂─────╂────\n"
@@ -96,9 +147,9 @@ class TicTac:
                 vertical_field += 1
             elif horizontal_field != 3:
                 out += "  ┃ "
-        print(out)
+        print(out + "\n\n")
 
-    def move(self, move_id):
+    def move(self, move_id) -> None:
         move_id -= 1
         if self.board[move_id] == "n":
             self.board[move_id] = self.active_player
@@ -108,7 +159,10 @@ class TicTac:
             else:
                 self.active_player = "x"
         else:
+            print(f"field {move_id} is occupied by {self.board[move_id]}\n{self.board}")
             raise Exception("field is occupied")
 
-#yay = ['x', 'x', 'n', 'n', 'n', 'n', 'o', 'n', 'n']
-#game = TicTac(players = {"x": [True, "player1"], "o": [False, "ai"]})
+
+if __name__ == "__main__":
+    test_board = ['x', 'n', 'n', 'n', 'n', 'n', 'o', 'n', 'x']
+    print(GetOptimalMove(test_board, "o"))
