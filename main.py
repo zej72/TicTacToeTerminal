@@ -45,7 +45,7 @@ while True:
         game.printBoard()
         if isTerminalState(game.board):
             winner = isTerminalState(game.board)
-            if winner:
+            if winner == True: # noqa
                 print("draw!")
             else:
                 print(f"{winner} won!")
